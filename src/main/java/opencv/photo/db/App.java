@@ -38,8 +38,12 @@ public class App {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_ENTER -> saveImage(grabber, converterToMat);
-                    case KeyEvent.VK_ESCAPE -> exitApplication = true;
+                    case KeyEvent.VK_ENTER:
+                        saveImage(grabber, converterToMat);
+                        break;
+                    case KeyEvent.VK_ESCAPE:
+                        exitApplication = true;
+                        break;
                 }
             }
 
