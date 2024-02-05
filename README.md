@@ -22,18 +22,17 @@ sequenceDiagram
 ### Usage
 
 ```shell
-./mvnw package
-COD_INSTITUICAO=1
-RGM_ALUNO=123456789
-java -jar target/photo-db-1.0-jar-with-dependencies.jar $COD_INSTITUICAO $RGM_ALUNO
+./gradlew run
 ```
+
+ESQ to exit
+ENTER to save
 
 ## Db Configuration
 At [src/main/resources/connection.properties](src/main/resources/connection.properties)
-```
+```properties
 jdbc.driver=org.h2.Driver
 jdbc.user=sa
 jdbc.pass=
-jdbc.url=jdbc:h2:file:~/java-photo-db
+jdbc.url=jdbc:h2:file:~/photo-db
 ```
-](https://opencv-java-tutorials.readthedocs.io/en/latest/)https://opencv-java-tutorials.readthedocs.io/en/latest/
