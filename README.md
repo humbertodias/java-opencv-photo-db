@@ -24,9 +24,15 @@ sequenceDiagram
 ```shell
 ./gradlew run
 ```
-
 ESQ to exit
+
 ENTER to save
+
+or building jar
+```shell
+./gradlew shadowJar
+java -jar build/libs/opencv-photo-db.jar
+```
 
 ## Db Configuration
 At [src/main/resources/connection.properties](src/main/resources/connection.properties)
