@@ -17,9 +17,20 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.0.0-android'
-
-    implementation 'org.bytedeco:javacv-platform:1.5.10'
-    implementation 'org.bytedeco:openblas:0.3.26-1.5.10'
+    implementation('org.bytedeco:javacv-platform:1.5.10'){
+        exclude module:'ffmpeg'
+        exclude module:'flycapture'
+        exclude module:'libdc1394'
+        exclude module:'libfreenect'
+        exclude module:'libfreenect2'
+        exclude module:'librealsense'
+        exclude module:'librealsense2'
+        exclude module:'videoinput'
+        exclude module:'artoolkitplus'
+        exclude module:'flandmark'
+        exclude module:'leptonica'
+        exclude module:'tesseract'
+    }
 
     implementation 'com.h2database:h2:2.2.224'
 
