@@ -3,7 +3,7 @@
 
 # Ignore Gradle build output directory
 build
-captured_image.png
+captured.png
 
 .idea
 .DS_Store
