@@ -34,7 +34,7 @@ public class ConnectionFactory {
         }
     }
 
-    private ConnectionFactory(){
+    private ConnectionFactory() {
 
     }
 
@@ -69,18 +69,21 @@ public class ConnectionFactory {
         }
     }
 
-    public static void insertImage(String type, byte [] imageData) throws IOException, SQLException, ClassNotFoundException {
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(TABLE_PHOTO_SQL_INSERT)) {
+    public static void insertImage(String type, byte[] imageData) throws IOException, SQLException, ClassNotFoundException {
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(TABLE_PHOTO_SQL_INSERT)) {
 
-            // Create an InputStream from the byte array
-            try (InputStream inputStream = new ByteArrayInputStream(imageData)) {
-                preparedStatement.setString(1, type);
-                preparedStatement.setBinaryStream(2, inputStream, imageData.length);
-                preparedStatement.setInt(3, imageData.length);
+                // Create an InputStream from the byte array
+                try (InputStream inputStream = new ByteArrayInputStream(imageData)) {
+                    preparedStatement.setString(1, type);
+                    preparedStatement.setBinaryStream(2, inputStream, imageData.length);
+                    preparedStatement.setInt(3, imageData.length);
 
-                // Execute the query
-                preparedStatement.executeUpdate();
+                    // Execute the query
+                    preparedStatement.executeUpdate();
+                }
             }
+            connection.commit();
         }
 
     }
