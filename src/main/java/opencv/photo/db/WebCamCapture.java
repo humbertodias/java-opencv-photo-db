@@ -8,6 +8,7 @@ import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Point;
 import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_core.Size;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyAdapter;
@@ -21,8 +22,8 @@ import java.sql.SQLException;
 
 public class WebCamCapture {
 
-    private static boolean exitApplication = false;
-    private static final String imageExtension = "png";
+    private static boolean exit = false;
+    private static final String ext = "png";
 
     public void run() throws org.bytedeco.javacv.FrameGrabber.Exception {
         // Create a frame grabber for the default camera (usually the built-in webcam)
@@ -44,16 +45,19 @@ public class WebCamCapture {
                                 saveImage(grabber, converterToMat);
                                 break;
                             case KeyEvent.VK_ESCAPE:
-                                exitApplication = true;
+                                exit = true;
                                 break;
                         }
                     }
                 });
 
+                int w2 = grabber.getImageWidth() / 2;
+                int h2 = grabber.getImageHeight() / 2;
+
                 // Main loop to capture and display frames
                 do {
                     // Break the loop if the exitApplication flag is set
-                    if (exitApplication) {
+                    if (exit) {
                         break;
                     }
                     // Capture a frame from the webcam
@@ -64,7 +68,7 @@ public class WebCamCapture {
 
                     // Apply any additional processing if needed
                     // For example, resize the frame
-                    // opencv_imgproc.resize(matFrame, matFrame, new Size(640, 480));
+                    opencv_imgproc.resize(matFrame, matFrame, new Size(w2, h2));
 
                     // Display the converted Mat in the canvas frame
                     canvasFrame.showImage(converterToMat.convert(matFrame));
@@ -90,12 +94,11 @@ public class WebCamCapture {
             org.bytedeco.javacv.Frame frame = grabber.grab();
             // Convert the frame to Mat
             Mat matFrame = converterToMat.convertToMat(frame);
-            final String imagePath = "captured." + imageExtension;
+            final String imagePath = "captured." + ext;
             saveImageToFile(imagePath, matFrame);
             final byte[] imageData = readImageByteArray(imagePath);
-            saveImageToDatabase("image/" + imageExtension, imageData);
+            saveImageToDatabase("image/" + ext, imageData);
 
-            // Draw text on the Mat frame
             drawText(matFrame, "Image saved!", new Point(20, 50), new Scalar(0, 255, 0, 0));
 
         } catch (IOException | SQLException | ClassNotFoundException e) {
@@ -117,7 +120,7 @@ public class WebCamCapture {
 
         // Convert BufferedImage to byte array
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, imageExtension, byteArrayOutputStream);
+        ImageIO.write(bufferedImage, ext, byteArrayOutputStream);
 
         return byteArrayOutputStream.toByteArray();
     }
