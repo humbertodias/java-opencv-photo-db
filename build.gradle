@@ -12,24 +12,48 @@ repositories {
     mavenCentral()
 }
 
+def osName = System.properties['os.name'].toLowerCase()
+
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.0.0-android'
-    implementation('org.bytedeco:javacv-platform:1.5.10'){
-        exclude module:'ffmpeg'
-        exclude module:'flycapture'
-        exclude module:'libdc1394'
-        exclude module:'libfreenect'
-        exclude module:'libfreenect2'
-        exclude module:'librealsense'
-        exclude module:'librealsense2'
-        exclude module:'videoinput'
-        exclude module:'artoolkitplus'
-        exclude module:'flandmark'
-        exclude module:'leptonica'
-        exclude module:'tesseract'
+
+    // Common
+    implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10'
+    implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10'
+
+    if (osName.contains('linux')) {
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'linux-x86_64'
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'linux-x86_64'
+    }
+    if (osName.contains('mac')) {
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-x86_64'
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-arm64'
+
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-x86_64'
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-arm64'
+    }
+    if (osName.contains('windows')) {
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'windows-x86_64'
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'windows-x86_64'
     }
 
+    implementation(group: 'org.bytedeco', name: 'javacv', version: '1.5.10') {
+        exclude module: 'ffmpeg'
+        exclude module: 'flycapture'
+        exclude module: 'libdc1394'
+        exclude module: 'libfreenect'
+        exclude module: 'libfreenect2'
+        exclude module: 'librealsense'
+        exclude module: 'librealsense2'
+        exclude module: 'videoinput'
+        exclude module: 'artoolkitplus'
+        exclude module: 'flandmark'
+        exclude module: 'leptonica'
+        exclude module: 'tesseract'
+    }
+
+    // db
     implementation 'com.h2database:h2:2.2.224'
 
     // Use JUnit Jupiter API for testing.
