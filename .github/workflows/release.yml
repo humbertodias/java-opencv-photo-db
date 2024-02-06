@@ -59,7 +59,7 @@ jobs:
           name: artifact
           path: ${{github.workspace}}
 
-      - name: Rename
+      - name: List files
         run: |
           cd ${{github.workspace}}
           find . -name "*.jar"
