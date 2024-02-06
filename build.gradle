@@ -20,6 +20,7 @@ java {
 
 def arch = System.getProperty('os.arch')
 if (arch.equalsIgnoreCase("aarch64")) arch = "arm64"
+if (arch.contains("x86") || arch.contains("x64")) arch = "x86_64"
 println "Architecture: $arch"
 
 def osName = System.properties['os.name'].toLowerCase().replaceAll("\\s","")
