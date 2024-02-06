@@ -19,12 +19,14 @@ java {
 }
 
 def arch = System.getProperty('os.arch')
+if (arch.equalsIgnoreCase("aarch64")) arch = "arm64"
 println "Architecture: $arch"
 
 def osName = System.properties['os.name'].toLowerCase().replaceAll("\\s","")
+if (osName.contains("windows")) osName = "windows"
 println "osName: $osName"
 
-def osTarget = System.properties['os.target'] ?: 'linux-x86_64'
+def osTarget = System.properties['os.target'] ?: "$osName-$arch"
 println "osTarget: $osTarget"
 
 dependencies {
