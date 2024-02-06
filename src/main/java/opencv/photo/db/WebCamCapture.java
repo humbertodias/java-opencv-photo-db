@@ -9,11 +9,14 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Point;
 import org.bytedeco.opencv.opencv_core.Scalar;
 
+import javax.imageio.ImageIO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
 public class WebCamCapture {
@@ -87,12 +90,9 @@ public class WebCamCapture {
             org.bytedeco.javacv.Frame frame = grabber.grab();
             // Convert the frame to Mat
             Mat matFrame = converterToMat.convertToMat(frame);
-
-            byte[] imageData = new byte[0];
-            // Convert the IplImage to a byte array
-            opencv_imgcodecs.imencode("." + imageExtension, matFrame, imageData);
-
-            saveImageToFile("captured." + imageExtension, imageData);
+            final String imagePath = "captured." + imageExtension;
+            saveImageToFile(imagePath, matFrame);
+            final byte[] imageData = readImageByteArray(imagePath);
             saveImageToDatabase("image/" + imageExtension, imageData);
 
             // Draw text on the Mat frame
@@ -104,12 +104,24 @@ public class WebCamCapture {
 
     }
 
-    private static void saveImageToFile(final String filePath, byte[] imageData) throws IOException {
+    private static void saveImageToFile(final String filePath, Mat image) {
         // Save the current frame as a PNG file
         Path outputPath = Path.of(filePath);
-        Files.write(outputPath, imageData);
+        opencv_imgcodecs.imwrite(filePath, image);
         System.out.println("Image saved at: " + outputPath);
     }
+
+    // Read PNG to byte array using ImageIO
+    private static byte[] readImageByteArray(final String imagePath) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(Paths.get(imagePath).toFile());
+
+        // Convert BufferedImage to byte array
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, imageExtension, byteArrayOutputStream);
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
 
     private static void saveImageToDatabase(final String mimeType, byte[] imageData) throws SQLException, IOException, ClassNotFoundException {
         // Establish a JDBC connection (modify connection URL, username, and password)
