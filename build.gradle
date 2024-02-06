@@ -11,6 +11,11 @@ plugins {
 repositories {
     mavenCentral()
 }
+
+def javaVersion = JavaVersion.VERSION_1_8;
+sourceCompatibility = javaVersion;
+targetCompatibility = javaVersion; // defaults to sourceCompatibility
+
 def arch = System.getProperty('os.arch')
 println "Architecture: $arch"
 
