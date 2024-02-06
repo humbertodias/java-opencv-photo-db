@@ -11,13 +11,14 @@ plugins {
 repositories {
     mavenCentral()
 }
+def arch = System.getProperty('os.arch')
+println "Architecture: $arch"
 
-def osName = System.properties['os.name'].toLowerCase().split(" ")[0] + '-x86_64'
-println("osName:${osName}")
-def osTarget = System.properties['os.target']?.trim() ?: osName
-println("osTarget:${osTarget}")
-def archTarget = osTarget.split("-")[1]
-println("archTarget:${archTarget}")
+def osName = System.properties['os.name'].toLowerCase().replaceAll("\\s","")
+println "osName: $osName"
+
+def osTarget = System.properties['os.target'] ?: 'linux-x86_64'
+println "osTarget: $osTarget"
 
 dependencies {
     // This dependency is used by the application.
