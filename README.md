@@ -1,11 +1,12 @@
 [![Build, Test, and Publish Release](https://github.com/humbertodias/java-opencv-photo-db/actions/workflows/release.yml/badge.svg)](https://github.com/humbertodias/java-opencv-photo-db/actions/workflows/release.yml)
 
-### java-opencv-photo-db
+### OpenCV Photo-db
 
 Java desktop application using OpenCV to take photos from your webcam and store on a database as a BLOB file
 
 Requirement
-[Java OpenCV](https://opencv-java-tutorials.readthedocs.io/en/latest)
+* [Java 11+](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html)
+* [OpenCV](https://opencv-java-tutorials.readthedocs.io/en/latest)
 
 
 ```mermaid
