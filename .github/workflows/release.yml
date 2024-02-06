@@ -12,10 +12,13 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os.target: [ linux, windows, mac ]
 
     steps:
       - name: Checkout code
@@ -33,7 +36,7 @@ jobs:
 
       - name: Setup xvfb for screen 0
         run: Xvfb :1 -screen 0 1600x1200x24 &
-      - run: ./gradlew shadowJar
+      - run: ./gradlew shadowJar -Dos.target=${{os.target}}
         env:
           DISPLAY: :1
       - name: Tear down xvfb

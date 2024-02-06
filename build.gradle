@@ -12,7 +12,9 @@ repositories {
     mavenCentral()
 }
 
-def osName = System.properties['os.name'].toLowerCase()
+def osName = System.properties['os.name'].toLowerCase().split(" ")[0]
+def osTarget = System.properties['os.target']?.trim() ?: osName
+println("os.target:${osTarget}")
 
 dependencies {
     // This dependency is used by the application.
@@ -22,18 +24,18 @@ dependencies {
     implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10'
     implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10'
 
-    if (osName.contains('linux')) {
+    if (osTarget.contains('linux')) {
         implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'linux-x86_64'
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'linux-x86_64'
     }
-    if (osName.contains('mac')) {
+    if (osTarget.contains('mac')) {
         implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-x86_64'
         implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-arm64'
 
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-x86_64'
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-arm64'
     }
-    if (osName.contains('windows')) {
+    if (osTarget.contains('windows')) {
         implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'windows-x86_64'
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'windows-x86_64'
     }
@@ -69,7 +71,7 @@ application {
 }
 
 shadowJar {
-//    archiveBaseName = 'your_project'
+    archiveBaseName = "opencv-photo-db-${osTarget}"
     archiveVersion = ''
     archiveClassifier = ''
     mainClassName = 'opencv.photo.db.App'
