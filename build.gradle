@@ -12,9 +12,11 @@ repositories {
     mavenCentral()
 }
 
-def javaVersion = JavaVersion.VERSION_1_8;
-sourceCompatibility = javaVersion;
-targetCompatibility = javaVersion; // defaults to sourceCompatibility
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
 
 def arch = System.getProperty('os.arch')
 println "Architecture: $arch"
