@@ -1,3 +1,5 @@
+[![Build, Test, and Publish Release](https://github.com/humbertodias/java-opencv-photo-db/actions/workflows/release.yml/badge.svg)](https://github.com/humbertodias/java-opencv-photo-db/actions/workflows/release.yml)
+
 ### java-opencv-photo-db
 
 Java desktop application using OpenCV to take photos from your webcam and store on a database as a BLOB file
