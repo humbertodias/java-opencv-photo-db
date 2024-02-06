@@ -32,7 +32,7 @@ dependencies {
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'linux-arm64'
     }
     if (osTarget.contains('mac')) {
-        implementation group: 'org.bytedeco', n ame: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-x86_64'
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-x86_64'
         implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-arm64'
 
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-x86_64'
@@ -40,7 +40,10 @@ dependencies {
     }
     if (osTarget.contains('windows')) {
         implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'windows-x86_64'
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'windows-arm64'
+
         implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'windows-x86_64'
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'windows-arm64'
     }
 
     implementation(group: 'org.bytedeco', name: 'javacv', version: '1.5.10') {
