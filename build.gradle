@@ -12,9 +12,12 @@ repositories {
     mavenCentral()
 }
 
-def osName = System.properties['os.name'].toLowerCase().split(" ")[0]
+def osName = System.properties['os.name'].toLowerCase().split(" ")[0] + '-x86_64'
+println("osName:${osName}")
 def osTarget = System.properties['os.target']?.trim() ?: osName
-println("os.target:${osTarget}")
+println("osTarget:${osTarget}")
+def archTarget = osTarget.split("-")[1]
+println("archTarget:${archTarget}")
 
 dependencies {
     // This dependency is used by the application.
@@ -25,22 +28,16 @@ dependencies {
     implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10'
 
     if (osTarget.contains('linux')) {
-        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'linux-x86_64'
-        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'linux-arm64'
-
-        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'linux-x86_64'
-        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'linux-arm64'
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: "linux-${archTarget}"
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: "linux-${archTarget}"
     }
     if (osTarget.contains('mac')) {
-        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-x86_64'
-        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'macosx-arm64'
-
-        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-x86_64'
-        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'macosx-arm64'
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: "macosx-${archTarget}"
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: "macosx-${archTarget}"
     }
     if (osTarget.contains('windows')) {
-        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: 'windows-x86_64'
-        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: 'windows-x86_64'
+        implementation group: 'org.bytedeco', name: 'opencv', version: '4.9.0-1.5.10', classifier: "windows-${archTarget}"
+        implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.26-1.5.10', classifier: "windows-${archTarget}"
     }
 
     implementation(group: 'org.bytedeco', name: 'javacv', version: '1.5.10') {
