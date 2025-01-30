@@ -33,7 +33,7 @@ ESC to exit
 
 ENTER to save
 
-## Db Configuration
+## DB Configuration
 At [src/main/resources/connection.properties](src/main/resources/connection.properties)
 ```properties
 jdbc.driver=org.h2.Driver
