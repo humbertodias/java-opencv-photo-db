@@ -42,6 +42,10 @@ jobs:
       - name: Tear down xvfb
         run: killall Xvfb
 
+      - name: Rename artifact
+        run: |
+          mv build/libs/*.jar build/libs/${{ matrix.os }}.jar
+
       - name: Archive Folder
         uses: actions/upload-artifact@v4
         with:
@@ -51,13 +55,31 @@ jobs:
   publish-release:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
-      - name: Download Artifact
+      - name: Download linux-arm64
         uses: actions/download-artifact@v4
         with:
-          name: artifact-*
-          path: ${{github.workspace}}
+          name: app-linux-arm64
+          
+      - name: Download linux-arm64
+        uses: actions/download-artifact@v4
+        with:
+          name: app-linux-x86_64
+          
+      - name: Download windows-x86_64
+        uses: actions/download-artifact@v4
+        with:
+          name: app-windows-x86_64
+          
+      - name: Download macosx-arm64
+        uses: actions/download-artifact@v4
+        with:
+          name: app-macosx-arm64
+          
+      - name: Download macosx-x86_64
+        uses: actions/download-artifact@v4
+        with:
+          name: app-macosx-x86_64
 
       - name: List files
         run: |
