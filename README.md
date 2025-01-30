@@ -39,5 +39,5 @@ At [src/main/resources/connection.properties](src/main/resources/connection.prop
 jdbc.driver=org.h2.Driver
 jdbc.user=sa
 jdbc.pass=
-jdbc.url=jdbc:h2:file:~/photo-db
+jdbc.url=jdbc:h2:file:~/java-opencv-photo-db
 ```
