@@ -44,7 +44,7 @@ jobs:
 
       - name: Rename artifact
         run: |
-          mv build/libs/*.jar build/libs/${{ matrix.os }}.jar
+          mv build/libs/*.jar build/libs/${{ matrix.os-target }}.jar
 
       - name: Archive Folder
         uses: actions/upload-artifact@v4
