@@ -29,7 +29,7 @@ sequenceDiagram
 ```
 ![Screenshot 2024-02-06 at 2 12 04 PM](https://github.com/humbertodias/java-opencv-photo-db/assets/9255997/e053632e-31ec-46bf-ae6d-12348dc0d894)
 
-ESQ to exit
+ESC to exit
 
 ENTER to save
 
