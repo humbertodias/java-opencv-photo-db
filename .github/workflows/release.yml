@@ -61,7 +61,7 @@ jobs:
         with:
           name: app-linux-arm64
           
-      - name: Download linux-arm64
+      - name: Download linux-x86_64
         uses: actions/download-artifact@v4
         with:
           name: app-linux-x86_64
